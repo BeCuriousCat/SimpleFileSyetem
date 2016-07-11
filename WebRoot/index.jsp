@@ -1,11 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@page import="com.czw.bean.User"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
+<!-- 验证权限 -->
+<%
+	User user = (User) request.getSession().getAttribute("user");
+	if (user == null) {
+		response.sendRedirect(basePath + "login.jsp");
+	}
+%>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -24,111 +33,76 @@
 	type="text/javascript"></script>
 </head>
 <body>
-	<div class="container">
-		<section class="loginBox row-fluid">
-			<div class="tabbable" id="tabs-634549">
-				<ul class="nav nav-tabs">
-					<li><a href="#panel-60560" data-toggle="tab">帐号登录</a></li>
-					<li class="active"><a href="#panel-549981" data-toggle="tab">注册</a>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane" id="panel-60560">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">用戶名</label>
-								<div class="col-sm-10">
-									<input type="email" class="form-control" id="inputEmail3"
-										placeholder="username">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">密碼</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="inputPassword3"
-										placeholder="Password">
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit" class="btn btn-default">Sign in</button>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="tab-pane active" id="panel-549981">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">用戶名</label>
-								<div class="col-sm-10">
-									<input type="email" class="form-control" id="inputEmail3"
-										placeholder="username">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">密碼</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="inputPassword3"
-										placeholder="Password">
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit" class="btn btn-default">Register</button>
-								</div>
-							</div>
-						</form>
+
+	<div id="content">
+		<div class="container">
+			<div class="row">
+				<div class="span10">
+
+					<div class="widget-content">
+						<div class="tabbable" style="overflow: hidden;">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#1" data-toggle="tab">文件管理</a></li>
+							</ul>
+							<form action="${basePath }uploadfile" method="post"
+								enctype="multipart/form-data">
+								<label for="upLoadFile">文件上传：</label> <input type="file"
+									class="btn" name="upload" /> <input type="submit" value="提交"
+									class="btn">${result }
+							</form>
+							<br />
+							<c:if test="${!empty dataList}">
+								<c:forEach items="${dataList}" var="r" varStatus="s">
+									<div>
+										<ul class="inline unstyled">
+											<h3>
+												<i class="icon-file"></i><a
+													href="${basePath }download?filename=${r[1] }">${r[0] }</a>
+											</h3>
+											<li class="pull-left" style="margin-left:15px;">上传时间：${r[3] }</li>
+											<li class="pull-left" style="margin-left:15px;">下载次数：${r[2] }</li>
+											<li class="pull-left" style="margin-left:15px;">上传者：${r[4] }</li>
+										</ul>
+									</div>
+									<br>
+								</c:forEach>
+							</c:if>
+						</div>
 					</div>
 				</div>
+				<!-- /span9 -->
 			</div>
-		</section>
-		<!-- /loginBox -->
+			<!-- /row -->
+		</div>
+		<!-- /container -->
 	</div>
-	<!-- /container -->
+	<!-- /content -->
+
+
+	<div id="footer">
+		<div class="container">
+			<hr />
+			<p>&copy; 2015/1/14 西南交通大学.</p>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /footer -->
+
+
+
+
+	<!-- Le javascript
+================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- dsdsa -->
+	<script src="./js/upload/jquery-1.8.1.js"></script>
+	<script src="./js/upload/jquery.ui.widget.js"></script>
+	<script src="./js/upload/jquery.iframe-transport.js"></script>
+	<script src="./js/upload/jquery.fileupload.js"></script>
+	<script src="./js/upload/jquery.tmpl.min.js"></script>
+	<script src="./js/upload/upload2.js"></script>
+	<!-- /dasd -->
+	<script src="./js/bootstrap.js"></script>
+	<script src="./js/tool.js"></script>
 </body>
-<style>
-* {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	background: #444 url(image/carbon_fibre_big.png)
-}
-
-.loginBox {
-	width: 420px;
-	height: 230px;
-	padding: 0 20px;
-	border: 1px solid #fff;
-	color: #000;
-	margin-top: 40px;
-	border-radius: 8px;
-	background: white;
-	box-shadow: 0 0 15px #222;
-	background: -moz-linear-gradient(top, #fff, #efefef 8%);
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6),
-		to(#f4f4f4));
-	font: 11px/1.5em 'Microsoft YaHei';
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -210px;
-	margin-top: -115px;
-}
-
-.loginBox h2 {
-	height: 45px;
-	font-size: 20px;
-	font-weight: normal;
-}
-
-.loginBox .left {
-	border-right: 1px solid #ccc;
-	height: 100%;
-	padding-right: 20px;
-}
-</style>
 </html>

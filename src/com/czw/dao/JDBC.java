@@ -1,4 +1,4 @@
-package com.czw.dto;
+package com.czw.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import com.czw.util.FileUtility;
 
 public class JDBC {
 	private static String DRIVERCLASS = "com.mysql.jdbc.Driver";
-	private static String URL = "jdbc:mysql://115.28.172.55:3306?user=user&password=159357";
+	private static String URL = "jdbc:mysql://115.28.172.55:3306?characterEncoding=utf8&useSSL=true";
 	private static String USERNAME = "user";
 	private static String PASSWORD = "159357";
 	private static final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
@@ -30,7 +30,7 @@ public class JDBC {
 		Connection conn = threadLocal.get();	// 从线程中获得数据库连接
 		if (conn == null) {						// 没有可用的数据库连接
 			try {
-				conn = DriverManager.getConnection(URL);// 创建新的数据库连接
+				conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);// 创建新的数据库连接
 				threadLocal.set(conn);			// 将数据库连接保存到线程中
 			} catch (SQLException e) {
 				e.printStackTrace();

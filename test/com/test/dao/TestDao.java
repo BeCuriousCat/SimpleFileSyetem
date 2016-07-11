@@ -3,7 +3,7 @@ package com.test.dao;
 import java.util.Iterator;
 import java.util.Vector;
 
-import com.czw.dto.Dao;
+import com.czw.dao.Dao;
 
 public class TestDao {
 	Dao dao = Dao.getInstance();
