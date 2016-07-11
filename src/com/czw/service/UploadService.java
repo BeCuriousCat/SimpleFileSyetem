@@ -33,8 +33,9 @@ public class UploadService {
 	public ArrayList<Object[]> getDownloadFiles() {
 		String sql = "select * from fs_upLoadFile order by uploaddate desc";
 		Vector<Vector<Object>> Vect= dao.selectSomeNote(sql);
-		System.out.println(Vect.toString());
-		ArrayList<Object[]> dataList = null; 
+
+		ArrayList<Object[]> dataList = null;
+
 		dataList = getUsefulData(Vect);
 		return dataList;
 	}
@@ -47,7 +48,10 @@ public class UploadService {
 			o[1] = v.get(3);						// 获取列表顺序与数据库字段顺序对应 时间
 			o[2] = v.get(4);						// 次数
 			o[3] = v.get(5);						// 作者
-			o[4] = v.get(7);						// 路径
+			o[4] = v.get(6);						// 路径
+			o[5] = v.get(7);						// 路径
+			
+			dataList.add(o);
 		}
 		return dataList;
 	}
@@ -56,6 +60,7 @@ public class UploadService {
  * @param filename
  */
 	public void updownloadtimes(String filename) {
+		
 		String sql = "select downloadtimes from fs_upLoadFile where fileNameNo ='"+filename+"'";
 		int times = 0;
 		Object o = dao.selectOnlyValue(sql);
@@ -64,7 +69,7 @@ public class UploadService {
 			 times = (Integer) o ;
 		} 
 		times = times + 1;
-		sql = "update fs_upload set downloadtimes ='" + times + "' where fileNameNo ='"+filename+"'";
+		sql = "update fs_upLoadFile set downloadtimes ='" + times + "' where fileNameNo ='"+filename+"'";
 		dao.update(sql);
 		
 	}

@@ -21,13 +21,10 @@
 
 	<package name="fileSystem" extends="struts-default" namespace="/">
 
-		<action name="login!*" class="com.czw.action.UserAction"
-			method="login">
-		</action>
-
+		<action name="login!*" class="com.czw.action.UserAction" method="login"></action>
 
 		<action name="uploadfile" class="com.czw.upload.UploadFile">
-		 	<result type="redirect">/downloadfile!listDownloadFiles</result>
+		 	<result type="redirectAction">downloadfile!listDownloadFiles</result>
 		</action>
 		
 		<action name="downloadfile!*" class="com.czw.action.DownLoadAction"

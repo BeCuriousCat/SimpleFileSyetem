@@ -34,9 +34,10 @@ public class DownLoadAction {
 		
 		ArrayList<Object[]> dataList = uploadService.getDownloadFiles();
 		
+
 		requset.setAttribute("label", LABEL);
 		requset.setAttribute("dataList", dataList);
-		
+
 		return "upload";
 	}
 }

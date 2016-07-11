@@ -59,8 +59,8 @@
 												<i class="icon-file"></i><a
 													href="${basePath }download?filename=${r[1] }">${r[0] }</a>
 											</h3>
-											<li class="pull-left" style="margin-left:15px;">上传时间：${r[3] }</li>
-											<li class="pull-left" style="margin-left:15px;">下载次数：${r[2] }</li>
+											<li class="pull-left" style="margin-left:15px;">上传时间：${r[2] }</li>
+											<li class="pull-left" style="margin-left:15px;">下载次数：${r[3] }</li>
 											<li class="pull-left" style="margin-left:15px;">上传者：${r[4] }</li>
 										</ul>
 									</div>
