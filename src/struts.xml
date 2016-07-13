@@ -22,6 +22,10 @@
 	<package name="fileSystem" extends="struts-default" namespace="/">
 
 		<action name="login!*" class="com.czw.action.UserAction" method="login"></action>
+		
+		<action name="register" class="com.czw.action.UserAction" method="register">
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<action name="uploadfile" class="com.czw.upload.UploadFile">
 		 	<result type="redirectAction">downloadfile!listDownloadFiles</result>

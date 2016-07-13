@@ -40,6 +40,7 @@
 				<div class="span10">
 
 					<div class="widget-content">
+						
 						<div class="tabbable" style="overflow: hidden;">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#1" data-toggle="tab">文件管理</a></li>
@@ -94,15 +95,8 @@
 	<!-- Le javascript
 ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<!-- dsdsa -->
-	<script src="./js/upload/jquery-1.8.1.js"></script>
-	<script src="./js/upload/jquery.ui.widget.js"></script>
-	<script src="./js/upload/jquery.iframe-transport.js"></script>
-	<script src="./js/upload/jquery.fileupload.js"></script>
-	<script src="./js/upload/jquery.tmpl.min.js"></script>
-	<script src="./js/upload/upload2.js"></script>
-	<!-- /dasd -->
-	<script src="./js/bootstrap.js"></script>
-	<script src="./js/tool.js"></script>
+
+	<script src="./bootstrap/js/bootstrap.js"></script>
+	
 </body>
 </html>

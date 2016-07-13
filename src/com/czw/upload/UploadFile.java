@@ -83,7 +83,10 @@ public class UploadFile extends ActionSupport {
 		//取得文件名(包括路径)里最后一个"."的索引
         int index = uploadFileName.lastIndexOf(".");
         //取得文件扩展名
-        String extendName = uploadFileName.substring(index).toLowerCase();
+        String extendName = "";
+        if (index >= 0) {
+        	extendName = uploadFileName.substring(index).toLowerCase();
+		}
         //用当前时间为文件重名名,确保文件名不重复
         Date date=new Date();
 		

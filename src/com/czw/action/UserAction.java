@@ -66,5 +66,59 @@ public class UserAction {
 		}
 		return null;
 	}
+	/**
+	 * 注册用户
+	 */
+	public String register(){
+		System.out.println("this is register");
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession session = request.getSession();
+		
+		DealStr dealStr = new DealStr();
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		username = username == null ? "" : dealStr.codeStringNoEncode(username);
+		password = password == null ? "" : dealStr.codeStringNoEncode(password);
+		username = username.trim();
+		password = password.trim();
+		System.out.println(username +"un ps"+password);
+		
+		User user = null;
+		
+		//json使用
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/json");
+		PrintWriter out = null;
+
+		
+		try {
+			user = new User(username, password);
+			out = response.getWriter();
+			String str = "";
+			
+			
+			if (!UserService.checkName(username)){
+				if(UserService.registerUser(username, password) > 0 );
+				str = "{ \"result\" : \"1\" }";		//注册成功时字符串返回1
+			} else {
+				str = "{ \"result\" : \"0\" }";		//注册失败时字符串返回0
+			}
+			out.println(str);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.println("程序内部错误");
+		} finally{
+			out.flush();
+			out.close();
+		}
+		return null;
+		
+		
+	}
+	
 	
 }

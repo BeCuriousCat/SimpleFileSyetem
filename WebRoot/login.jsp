@@ -62,27 +62,30 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="panel-549981">
-						<form class="form-horizontal">
+						<form class="form-horizontal" action="register">
 							<div class="form-group">
 								<label for="input3" class="col-sm-2 control-label">用戶名</label>
 								<div class="col-sm-10">
-									<input type="" class="form-control" id="3"
+									<input type="" class="form-control" id="R_username"
 										placeholder="username">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword3" class="col-sm-2 control-label">密碼</label>
 								<div class="col-sm-10">
-									<input type="password" class="form-control" id="inputPassword3"
+									<input type="password" class="form-control" id="R_password"
 										placeholder="Password">
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit" class="btn btn-default">Register</button>
+									<button id="register-sub"  class="btn btn-default">Register</button>
 								</div>
 							</div>
+							<div class="error-box-register">
+							</div>
+							<div id="" style="color: red;"></div>
 						</form>
 					</div>
 				</div>
@@ -140,6 +143,9 @@ body {
 		$("#login_sub").click(function(){
 			userLogin('${basePath}');
 		});
+		$("#register-sub").click(function(){
+			userRegister('${basePath}');
+		});
 		function userLogin(path){
 			var username = $("#username").val();
 			var password = $("#password").val();
@@ -185,13 +191,61 @@ body {
 			});
 		}
 		
-		document.onkeydown = function(e){ 
+		function userRegister(path){
+
+			var username = $("#R_username").val();
+			var password = $("#R_password").val();
+			
+			
+			if(username == "" || password == ""){
+				$(".error-box-register").html("用户名或密码不能为空！");
+				if($("#R_username").val() == ""){
+					$("#R_username").focus();
+				}else{
+					$("#R_password").focus();
+				}
+				return;
+			}
+			var url_string = "register";
+			$.ajax({
+				type: "post",
+				url: url_string,
+				data: {'username':username, 'password':password},
+				dataType:'json',
+				beforeSend:function(){
+		   			$("#register-sub").attr("disabled", true);
+		   			$(".error-box-register").html("注册中！请稍等...");
+				},
+				success:function(json) {
+					var result = json.result;
+					if (result == "1"){
+						location.href="${basePath}login.jsp";
+					}
+					else if (result == "0"){
+						$(".error-box-register").html("该用户已存在！");
+						$("#R_password").val("");
+						$("#R_password").focus();
+					}
+					else {
+						$(".error-box-register").html("发生内部错误，请重试！");
+					}
+				},
+				complete:function(){
+					$("#register-sub").attr("disabled", false);
+				},
+				error:function(){
+					$(".error-box-register").html("发生内部错误，请重试！");
+				}
+			});
+		}
+		
+		/* document.onkeydown = function(e){ 
 		    var ev = document.all ? window.event : e;
 		    if(ev.keyCode==13) {
-		    	alert(11);
+		    	
 		    	userLogin('${basePath}');
 		     }
-		}
+		} */
 	});
 	</script>
 </html>
