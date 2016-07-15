@@ -171,7 +171,7 @@ body {
 				success:function(json) {
 					var result = json.result;
 					if (result == "1"){
-						location.href="${basePath}index.jsp";
+						location.href="${basePath}downloadfile!listDownloadFiles";
 					}
 					else if (result == "0"){
 						$(".error-box").html("用户名或密码错误！");
